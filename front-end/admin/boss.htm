@@ -1,0 +1,205 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title>Босс-Кадровик  333</title>
+<script LANGUAGE="JavaScript" src="boss_db.js"> </script>
+<script LANGUAGE="JavaScript" src="boss_r.js"> </script>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<form METHOD="POST" NAME="theForm" onSubmit="return false">
+
+<div id="all">	</div>
+<div class="clear"> </div>
+<div id="line3">
+   <div class="bor">
+     <div>
+      <h1><span lang="ru">С</span>истем<span lang="ru">а</span> </h1>
+      <h1><span lang="ru">У</span>правления <span lang="ru">П</span>ерсоналом <b>БОСС-Кадровик</b></h1>
+     </div>
+   </div>
+
+</div>
+
+
+<div id="line4">
+  <div class="line4">
+    <div id="div1">
+      &nbsp;
+
+  <table BORDER=0 ID="mTable">
+
+  <!-- ни в коем случае не удалять (строка Пароль должна - 3-я см. window.onload)  -->
+  <tr><td colspan=3 rowspan=1></td></tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>Приложение:</td>
+<td><select NAME="ARM" SIZE="1" >
+<option SELECTED VALUE="pr">Учет кадров
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>Пользователь:</td>
+<td><input TYPE="TEXT" NAME="USERID" SIZE="22" VALUE="BOSS"></td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>Пароль:</td>
+<td><input TYPE="PASSWORD" NAME="PSW" SIZE="22" VALUE=""></td>
+</tr>
+
+<!-- имя_схемы@имя_сервера БД  -->
+<tr>
+<td>&nbsp;</td>
+<td>БД:</td>
+<td>
+ <SELECT NAME="SCHEME" SIZE="1">
+   <OPTION SELECTED VALUE="HR_TEST@ACE9.world">HR_TEST@ACE9
+ </SELECT>
+</td>
+</tr>
+
+<!-- имя_конфигурации  -->
+<tr>
+<td>&nbsp;</td>
+<td>Реализация:</td>
+<td>
+ <select NAME="ENV" SIZE="1"  onChange="changeENV();">
+  <option SELECTED VALUE="bk_test">Версия для тестирования
+ </select>
+</td>
+</tr>
+
+<!-- имя_сервера_приложений;имя_сервера_отчетов;каталог_Z_отчетов  -->
+<tr>
+<td>&nbsp;</td>
+<td>Сервер приложений:</td>
+<td>
+  <select NAME="WEBHOST" SIZE="1" onChange="changeHost();" >
+   <option SELECTED VALUE="BK_APPSRV:7778;rep_BK_APPSRV_FRHome1;C:\BK\TEMP">BK_APPSRV
+  </select>
+</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>Окно:</td>
+<td><INPUT type=radio name="WINTYPE" value="SAME" id = "WINTYPE_SAME" CHECKED>В этом же
+    <INPUT type=radio name="WINTYPE" value="NEW_E" id = "WINTYPE_NEW_E" >В окне Explorer
+    <INPUT type=radio name="WINTYPE" value="NEW_F" id = "WINTYPE_NEW_F" >В окне Forms
+</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>Статусная строка:</td>
+<td><input TYPE="CHECKBOX" NAME="StatusStr" SIZE="1" checked></td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>Oracle-внешний вид:</td>
+<td><input TYPE="CHECKBOX" NAME="LOOK" SIZE="1" checked></td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>Фоновый цвет:</td>
+<td>
+ <select name="COLOR" size="1" >
+   <option SELECTED value="teal">Teal</option>
+   <option value="blue">Синий</option>
+   <option value="red">Красный</option>
+   <option value="khaki">Хаки</option>
+   <option value="olive">Оливковый</option>
+   <option value="purple">Фиолетовый</option>
+ </select>
+</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>Ширина и высота аплета:</td>
+<td>
+ <select name="Applet_wh" size="1" >
+   <option SELECTED value="0x0">По умолчанию</option>
+   <option value="1400x964">1400x964</option>
+   <option value="1400x864">1400x864</option>
+   <option value="1400x764">1400x764</option>
+   <option value="1300x964">1300x964</option>
+   <option value="1300x864">1300x864</option>
+   <option value="1300x764">1300x764</option>
+   <option value="1200x964">1200x964</option>
+   <option value="1200x864">1200x864</option>
+   <option value="1200x764">1200x764</option>
+   <option value="1100x964">1100x964</option>
+   <option value="1100x864">1100x864</option>
+   <option value="1100x764">1100x764</option>
+   <option value="1000x964">1000x964</option>
+   <option value="1000x864">1000x864</option>
+   <option value="1000x764">1000x764</option>
+   <option value="960x764">960x764</option>
+   <option value="960x610">960x610</option>
+   <option value="960x556">960x556</option>
+   <option value="912x764">960x764</option>
+   <option value="912x610">960x610</option>
+   <option value="912x556">960x556</option>
+ </select>
+</td>
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>
+  <br>
+  </br>
+  <input TYPE="SUBMIT" VALUE="Продолжить" onClick="runForm();">
+  <input TYPE="BUTTON" VALUE="Выход" onClick="window.close();">
+</td>
+</tr>
+</table>
+   <p> <br /> &nbsp;</p>
+  <div class="clear">	</div>
+ </div>
+</div>
+
+
+<div class="line4">
+  <div id="div2">
+     <div>
+	  <a href="http://www.boss-kadrovik.ru/">
+	    <img border="0" src="images/kadr_01.gif" width="220" height="55">
+	  </a>
+     </div>
+   </div>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>
+
+<div id="line6">
+  <ul>
+	<li></li>
+  </ul>
+  <div class="clear"></div>
+  <div id="footer">
+    <div id="boss"><a href="http://www.bosshr.ru"><img src="images/boss.gif" alt="" /></a></div>
+    <div id="div4">
+	Copyright c 2007 ЗАО &quot;БОСС. Кадровые системы&quot;<br />
+        &nbsp;Все права защищены
+    </div>
+    <div id="div4a">
+      <a href=http://techsupport.boss.ru/index.php><img src="images/img1.jpg" alt="" />
+      Техническая поддержка</a>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<!--div class="clear"> </div-->
+
+</body>
+</html>
