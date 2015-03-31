@@ -1,16 +1,34 @@
+package winutils;
+
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
 import com.jacob.com.EnumVariant;
 import com.jacob.com.Variant;
 import com.jacob.com.ComThread;
 
-public class ShowFrmweb {
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class WinUtils implements WinService{
+
+	private static WinService service;
 
 	/**
 	 * example run loop method called by main()
 	 */
-	public void runMonitor() {
+	public static WinService getService(){
+		if(service == null){
+			service = new WinUtils();
+		}
+		return service;
+	}
 
+	@Override
+	public String[] getProcessList(String procName) {
+
+		ArrayList<String> processList = new ArrayList<String>(1);
+
+		if(procName == null) return new String[0];
 
 		ComThread.InitSTA();
 
@@ -23,10 +41,10 @@ public class ShowFrmweb {
 		ActiveXComponent wmiconnect = new ActiveXComponent(conRet.toDispatch());
 
 		// the WMI supports a query language.
-		 
+
 		String query = "select ProcessId, CommandLine, Caption  "
 				+ "from Win32_Process "
-				+ "where Caption = 'chrome.exe'";
+				+ "where Caption = '" + procName + "'";
 		Variant vCollection = wmiconnect
 				.invoke("ExecQuery", new Variant(query));
 
@@ -44,18 +62,19 @@ public class ShowFrmweb {
 			String commandLineString = Dispatch.call(item, "CommandLine").toString();
 			String caption = Dispatch.call(item, "Caption")
 					.toString();
-			resultString += processidString + "\n" + caption + "\n" +commandLineString;
-			System.out.println(resultString);
-
+			resultString += processidString + "\n" + caption;// + "\n" +commandLineString;
+			processList.add(resultString);
 		}
 
 		ComThread.Release();
 
+
+		return processList.toArray(new String[0]);
+
 	}
 
-	public static void main(String[] args) {
-		ShowFrmweb utilConnection = new ShowFrmweb();
-		utilConnection.runMonitor();
+	@Override
+	public boolean killProcess(String pid) {
+		return false;
 	}
-
 }
