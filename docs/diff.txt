@@ -1,0 +1,13 @@
+SourceForge.net: JLibDiff - Project Web Hosting - Open Source Software
+http://jlibdiff.sourceforge.net/index.htm
+
+
+java-diff-utils - The DiffUtils library for computing diffs, applying patches, generationg side-by-side view in Java - Google Project Hosting
+https://code.google.com/p/java-diff-utils/
+https://code.google.com/p/google-diff-match-patch/
+
+
+GNU Diff for Java
+http://www.bmsi.com/java/#diff
+
+
