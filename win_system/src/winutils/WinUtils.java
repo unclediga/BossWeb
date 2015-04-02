@@ -75,6 +75,30 @@ public class WinUtils implements WinService{
 
 	@Override
 	public boolean killProcess(String pid) {
+
+		ComThread.InitSTA();
+
+		ActiveXComponent wmi = null;
+		wmi = new ActiveXComponent("WbemScripting.SWbemLocator");
+		// no connection parameters means to connect to the local machine
+		Variant conRet = wmi.invoke("ConnectServer");
+		// the author liked the ActiveXComponent api style over the Dispatch
+		// style
+		ActiveXComponent wmiconnect = new ActiveXComponent(conRet.toDispatch());
+		Variant procs = wmiconnect.invoke("InstancesOf", new Variant("Win32_Process"));
+
+		EnumVariant procsEnum = new EnumVariant(procs.toDispatch());
+		Dispatch proc = null;
+
+		while (procsEnum.hasMoreElements()){
+			proc = procsEnum.nextElement().toDispatch();
+			System.out.println(proc.call(proc,"Caption").toString());
+		}
+
+
+		ComThread.Release();
+
+
 		return false;
 	}
 }
