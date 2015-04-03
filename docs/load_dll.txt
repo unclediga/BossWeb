@@ -1,0 +1,42 @@
+Чтобы DLL от Jаcob нашлась при выполнении страницы, нужно сделать:
+1) создать директории CATALINA_HOME\schared\lib (обычно CATALINA_HOME = TOMCAT_HOME)
+2) положить туда jacob-1.17-x86.dll (или jacob-1.17-x64.dll)
+3) в $CATALINA_HOME/conf/catalina.properties путь занести в параметр "shared.loader"
+       shared.loader=$CATALINA_HOME/shared/lib
+4) В конфигурации запуска приложения в IDEA поместить в поле "JVM options"
+      -Djava.library.path="C:\\APACHE\\apache-tomcat-7.0.59\\shared\\lib"
+
+==================================================
+
+http://wiki.apache.org/tomcat/HowTo
+ Дополнительно :
+   How to bundle a native library and a JNI library inside a JAR?
+   http://stackoverflow.com/questions/2937406/how-to-bundle-a-native-library-and-a-jni-library-inside-a-jar
+===================================================
+
+I'm encountering classloader problems when using JNI under Tomcat
+
+The important thing to know about using JNI under Tomcat is that one cannot place the native libraries OR their JNI interfaces under the WEB-INF/lib or WEB-INF/classes directories of a web application and expect to be able to reload the webapp without restarting the server. The class that calls System.loadLibrary(String) must be loaded by a classloader that is not affected by reloading the web application itself.
+
+Thus, if you have JNI code that follows the convention of including a static initilaizer like this:
+
+
+class FooWrapper {
+    static {
+        System.loadLibrary("foo");
+    }
+
+    native void doFoo();
+  }
+then both this class and the shared library should be placed in the $CATALINA_HOME/shared/lib directory.
+
+Note that under Windows, you'll also need to make sure that the library is in the java.library.path. Either add %CATALINA_HOME%\shared\lib to your Windows PATH environment variable, or place the DLL files in another location that is currently on the java.library.path. There may be a similar requirement for UNIX based system (I haven't checked), in which case you'd also have to add $CATALINA_HOME/shared/lib to the PATH environment variable. (Note: I'm not the original author of this entry.)
+
+The symptom of this problem that I encountered looked something like this -
+
+
+java.lang.UnsatisfiedLinkError: Native Library WEB-INF/lib/libfoo.so already loaded in another classloader
+        at java.lang.ClassLoader.loadLibrary0(ClassLoader.java:1525)
+If the UnsatisfiedLinkError is intermittent, it may be related to Tomcat's default session manager. It restored previous sessions at startup. One of those objects may load the JNI library. Try stopping the Tomcat JVM, deleting the SESSIONS.ser file, then starting Tomcat. You may consider changing the session persistence manager at this time.
+
+Note that Tomcat 6.0.14 the $CATALINA_HOME/shared/lib directory does not exist. You will need to add this and you will need to edit $CATALINA_HOME/conf/catalina.properties so that the shared.loader line looks like this shared.loader=$CATALINA_HOME/shared/lib

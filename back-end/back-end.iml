@@ -7,8 +7,11 @@
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/web/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/web" relative="/bossweb" />
+          <root url="file://$MODULE_DIR$/web" relative="" />
         </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src" />
+        </sourceRoots>
       </configuration>
     </facet>
   </component>
@@ -17,8 +20,12 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../docs">
+      <sourceFolder url="file://$MODULE_DIR$/../docs" type="java-resource" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 7.0.27" level="application_server_libraries" />
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 7.0.59" level="application_server_libraries" />
+    <orderEntry type="module" module-name="win_system" />
   </component>
 </module>

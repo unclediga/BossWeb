@@ -8,7 +8,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="jacob">
         <CLASSES>
           <root url="jar://$jacob_home$/jacob.jar!/" />
@@ -23,7 +23,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
           <root url="jar://$APPLICATION_HOME_DIR$/lib/junit.jar!/" />
