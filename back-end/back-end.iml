@@ -27,5 +27,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 7.0.59" level="application_server_libraries" />
     <orderEntry type="module" module-name="win_system" />
+    <orderEntry type="library" name="JSTL" level="project" />
   </component>
 </module>

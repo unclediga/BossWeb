@@ -9,6 +9,7 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="module" name="jacob" module-name="win_system" />
+          <element id="library" level="project" name="JSTL" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="back-end/web/Web" />

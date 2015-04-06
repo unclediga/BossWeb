@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="JSTL">
+    <CLASSES>
+      <root url="file://C:/Libraries/JSTL/tomcat.apache.org" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="http://tomcat.apache.org/taglibs/standart/apidocs" />
+    </JAVADOC>
+    <SOURCES />
+    <jarDirectory url="file://C:/Libraries/JSTL/tomcat.apache.org" recursive="false" />
+  </library>
+</component>
