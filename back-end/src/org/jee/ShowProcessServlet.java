@@ -1,5 +1,6 @@
 package org.jee;
 
+import winutils.ProcessInfo;
 import winutils.WinService;
 import winutils.WinUtils;
 
@@ -25,7 +26,7 @@ public class ShowProcessServlet extends HttpServlet {
         out.println("<ul>");
 
         WinService service =  WinUtils.getService();
-        String[] procs = service.getProcessList("chrome.exe");
+        ProcessInfo[] procs = service.getProcessList("chrome.exe");
         for (int i = 0; i < procs.length; i++) {
             out.println("<li>" + procs[i] + "</li>");
         }

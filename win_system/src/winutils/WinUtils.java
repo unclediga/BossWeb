@@ -7,7 +7,6 @@ import com.jacob.com.Variant;
 import com.jacob.com.ComThread;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class WinUtils implements WinService{
 
@@ -24,11 +23,12 @@ public class WinUtils implements WinService{
 	}
 
 	@Override
-	public String[] getProcessList(String procName) {
+	public ProcessInfo[] getProcessList(String procName) {
 
-		ArrayList<String> processList = new ArrayList<String>(1);
+		ArrayList<ProcessInfo> processList;
+		processList = new ArrayList<ProcessInfo>(0);
 
-		if(procName == null) return new String[0];
+		if(procName == null) return new ProcessInfo[0];
 
 		ComThread.InitSTA();
 
@@ -55,6 +55,7 @@ public class WinUtils implements WinService{
 
 		while (enumVariant.hasMoreElements()) {
 			resultString = "";
+			ProcessInfo procInfo = new ProcessInfo();
 			item = enumVariant.nextElement().toDispatch();
 
 			String processidString = Dispatch.call(item, "ProcessId")
@@ -63,18 +64,20 @@ public class WinUtils implements WinService{
 			String caption = Dispatch.call(item, "Caption")
 					.toString();
 			resultString += processidString + "\n" + caption;// + "\n" +commandLineString;
-			processList.add(resultString);
+			procInfo.setHandle(processidString);
+			procInfo.setName(commandLineString);
+			processList.add(procInfo);
 		}
 
 		ComThread.Release();
 
 
-		return processList.toArray(new String[0]);
+		return processList.toArray(new ProcessInfo[0]);
 
 	}
 
 	@Override
-	public boolean killProcess(String pid) {
+	public boolean killProcess(String pid,String name) {
 
 		ComThread.InitSTA();
 
@@ -92,9 +95,11 @@ public class WinUtils implements WinService{
 
 		while (procsEnum.hasMoreElements()){
 			proc = procsEnum.nextElement().toDispatch();
-			System.out.println(proc.call(proc,"Caption").toString());
+			System.out.println();
+			if(name.equals(proc.call(proc,"Caption").toString())){
+				System.out.println("kill proc (PID,name)=("+pid+","+name+")");
+			}
 		}
-
 
 		ComThread.Release();
 

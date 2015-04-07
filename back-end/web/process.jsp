@@ -1,14 +1,58 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="winutils.*" %>
+
 <html>
 <head>
     <title>Процессы</title>
 </head>
 <body>
-<jsp:text>hello!!</jsp:text>
-<p/>
-<jsp:text>hello one more time!!</jsp:text>
-<p/>
-<c:out value="Hello from JSTL!"/>
+
+<%
+    WinService service = WinUtils.getService();
+    ProcessInfo[] process = service.getProcessList("cmd.exe");
+
+    String[] params = request.getParameterValues("pid");
+    for (int i = 0; i < params.length; i++) {
+        service.killProcess(params[i],"cmd.exe");
+%>
+   <div class="color:red">kill PID <%= params[i]%><br/> </div>
+<%
+    }
+%>
+<form action="process.jsp">
+
+    <table>
+        <thead>
+        <tr>
+            <td></td>
+            <td>Handle</td>
+            <td>Process</td>
+        </tr>
+        </thead>
+        <tbody>
+        <%
+
+            for (int i = 0; i < process.length; i++) {
+        %>
+        <tr>
+            <td><input type="checkbox" name="pid" value="<%= process[i].getHandle() %>"/></td>
+            <td><%= process[i].getHandle() %>
+            </td>
+            <td><%= process[i].getName() %>
+            </td>
+        </tr>
+
+        <%
+            }
+
+
+        %>
+
+
+        </tbody>
+    </table>
+    <input type="submit" name="killbutton" value="kill"/>
+</form>
 </body>
 </html>

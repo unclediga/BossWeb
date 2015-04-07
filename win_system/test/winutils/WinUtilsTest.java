@@ -20,21 +20,20 @@ public class WinUtilsTest extends TestCase {
 
     public void testGetProcessList() throws Exception {
 
-        String[] processList = service.getProcessList("chrome.exe");
-        assertTrue("No chrome.exe instances in process list!",processList.length > 0);
+        ProcessInfo[] processList = service.getProcessList("cmd.exe");
+        assertTrue("No cmd.exe instances in process list!",processList.length > 0);
 
     }
 
     public void testKillProcess() throws Exception {
 
-        //String[] processList = service.getProcessList("cmd.exe");
-        //assertTrue("Incorrect testing! No cmd.exe instances in process list!",processList.length > 0);
-//        for(String process : processList){
-            service.killProcess("");
-//        }
-//        processList = service.getProcessList("cmd.exe");
+        ProcessInfo[] processList = service.getProcessList("cmd.exe");
+        for(ProcessInfo process : processList){
+            service.killProcess(process.getHandle(),process.getName());
+        }
+        processList = service.getProcessList("cmd.exe");
         // Ни один CMD.EXE не должен спастись!!!
-//        assertEquals(processList.length,0);
+        assertEquals(processList.length,0);
 
     }
 
