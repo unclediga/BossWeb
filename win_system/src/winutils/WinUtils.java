@@ -25,6 +25,18 @@ public class WinUtils implements WinService{
 	@Override
 	public ProcessInfo[] getProcessList(String procName) {
 
+		ProcessInfo[] testp = new ProcessInfo[2];
+		testp[0] = new ProcessInfo();
+		testp[0].setHandle("0001");
+		testp[0].setCaption("frmweb.exe");
+		testp[0].setCommandLine("frmweb server webfile=HTTP-0,0,1,bk_prod,10.3.42.184");
+		testp[1] = new ProcessInfo();
+		testp[1].setHandle("0002");
+		testp[1].setCaption("frmweb.exe");
+		testp[1].setCommandLine("frmweb server webfile=HTTP-0,0,1,bk_prod,10.3.42.165");
+		return testp;
+
+		/*
 		ArrayList<ProcessInfo> processList;
 		processList = new ArrayList<ProcessInfo>(0);
 
@@ -65,7 +77,7 @@ public class WinUtils implements WinService{
 					.toString();
 			resultString += processidString + "\n" + caption;// + "\n" +commandLineString;
 			procInfo.setHandle(processidString);
-			procInfo.setName(commandLineString);
+			procInfo.setCaption(commandLineString);
 			processList.add(procInfo);
 		}
 
@@ -73,6 +85,8 @@ public class WinUtils implements WinService{
 
 
 		return processList.toArray(new ProcessInfo[0]);
+
+        */
 
 	}
 
@@ -95,9 +109,8 @@ public class WinUtils implements WinService{
 
 		while (procsEnum.hasMoreElements()){
 			proc = procsEnum.nextElement().toDispatch();
-			System.out.println();
-			if(name.equals(proc.call(proc,"Caption").toString())){
-				System.out.println("kill proc (PID,name)=("+pid+","+name+")");
+			if(pid.equals(proc.call(proc,"Handle").toString())){
+				System.out.println("kill proc (PID,caption)=("+pid+","+name+")");
 			}
 		}
 

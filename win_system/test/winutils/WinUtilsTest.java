@@ -26,10 +26,10 @@ public class WinUtilsTest extends TestCase {
     }
 
     public void testKillProcess() throws Exception {
-
+        //TODO: за-mock-ать бы
         ProcessInfo[] processList = service.getProcessList("cmd.exe");
         for(ProcessInfo process : processList){
-            service.killProcess(process.getHandle(),process.getName());
+            service.killProcess(process.getHandle(),process.getCaption());
         }
         processList = service.getProcessList("cmd.exe");
         // Ни один CMD.EXE не должен спастись!!!

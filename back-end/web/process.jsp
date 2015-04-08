@@ -10,13 +10,16 @@
 
 <%
     WinService service = WinUtils.getService();
-    ProcessInfo[] process = service.getProcessList("cmd.exe");
+    ProcessInfo[] process = service.getProcessList("frmweb.exe");
 
     String[] params = request.getParameterValues("pid");
-    for (int i = 0; i < params.length; i++) {
-        service.killProcess(params[i],"cmd.exe");
+    if(params != null)
+        for (int i = 0; i < params.length; i++) {
+            service.killProcess(params[i],"cmd.exe");
+
+
 %>
-   <div class="color:red">kill PID <%= params[i]%><br/> </div>
+   <div style="background-color: red">kill PID <%= params[i]%><br/> </div>
 <%
     }
 %>
@@ -27,7 +30,9 @@
         <tr>
             <td></td>
             <td>Handle</td>
-            <td>Process</td>
+            <td>Caption</td>
+            <td>IP</td>
+            <td>Command line</td>
         </tr>
         </thead>
         <tbody>
@@ -37,10 +42,10 @@
         %>
         <tr>
             <td><input type="checkbox" name="pid" value="<%= process[i].getHandle() %>"/></td>
-            <td><%= process[i].getHandle() %>
-            </td>
-            <td><%= process[i].getName() %>
-            </td>
+            <td><%= process[i].getHandle() %>            </td>
+            <td><%= process[i].getCaption() %>            </td>
+            <td><%= process[i].getIP() %>                 </td>
+            <td><%= process[i].getCommandLine() %>         </td>
         </tr>
 
         <%
